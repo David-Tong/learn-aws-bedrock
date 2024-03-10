@@ -35,23 +35,18 @@ class Llama2Wrapper:
 
             # process and print the response
             result = json.loads(response.get("body").read())
-            print(result)
-            """
-            input_tokens = result["inputTextTokenCount"]
-            output_tokens = 0
-            output_list = result.get("results", [])
-
-            for output in output_list:
-                output_tokens += output["tokenCount"]
+          
+            input_tokens = result["prompt_token_count"]
+            output_tokens = result["generation_token_count"]
+            output = result["generation"]
 
             print("Invocation details:")
             print(f"- The input length is {input_tokens} tokens.")
             print(f"- The output length is {output_tokens} tokens.")
 
-            print(f"- The model returned {len(output_list)} response(s):")
-            for output in output_list:
-                print(output["outputText"])
-                """
+            print(f"- The model returned 1 response(s):")
+            print(output)
+
             return result
 
         except ClientError as err:
